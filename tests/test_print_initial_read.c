@@ -77,7 +77,6 @@ main (int argc, char** argv)
 	//3. read data
 	while ((read_size = read (client_sfd, buffer, sizeof(buffer)))!=-1)
 	{
-	    printf("read_size = %d\n", read_size);
 	    pretty_print (buffer, read_size);
 	    if (read_size < sizeof(buffer))
 		break;
@@ -102,9 +101,12 @@ pretty_print (const unsigned char* _buffer, int _size)
     static int line_num= 0;
     if (line_num == 0)
     {
-	printf ("\t 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
+	printf ("\n");
+	printf ("COL\\ROW\t 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
 	printf ("\n");
     }
+    printf("read_size = 0x%03x\n", _size);
+
     int row = _size/16 + 1 ;  //row numbers.
     int i;
     int j;
