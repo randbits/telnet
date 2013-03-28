@@ -7,6 +7,14 @@
 #ifndef _TELNET_CMDS_H_
 #define _TELNET_CMDS_H_
 
+typedef struct telnet_cmd telnet_cmd;
+struct telnet_cmd
+{
+    unsigned char  cmd_code; //command code. one byte.
+    const char*    cmd_name; //command name: e.g. "TELNET_CMD_SE"
+    const char*	   cmd_desc; //command description: e.g. "subnegotiation End" 
+};
+
 /*
  *rfc854.txt : p13~p14 TELNET COMMAND STRUCTURE
  *there'are two kinds of commands:
@@ -64,5 +72,12 @@
 
 /*the data IAC should escaped by IAC */
 //#define TELNET_IAC	255	//IAC:  Data Byte 255.
+
+/*
+ *	Public APIs
+ */
+
+extern const char* telnet_cmd_get_name (unsigned char cmd_code);
+extern const char* telnet_cmd_get_desc (unsigned char cmd_code);
 
 #endif /*_TELNET_CMDS_H_*/
