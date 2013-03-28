@@ -1,7 +1,12 @@
+## Core
 1. rfc854
    Telnet Protocol Specification
    Updated by: 5198
    Web: tools.ietf.org/html/rfc854
 2. rfc855
    Telnet Option Specifications
+   Web: tools.ietf.org/html/rfc855
+## Options
+3. rfc858
+   Telnet Suppress Go Ahead Option
    Web: tools.ietf.org/html/rfc855
