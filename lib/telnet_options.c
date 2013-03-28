@@ -8,7 +8,7 @@
 #define TELNET_OPT_MIN_CODE	0	//the min option code
 
 static telnet_option _telnet_options_table[] = {
-    {//3
+    [3] = {//3
 	.option_code = TELNET_OPT_SUPPRESS_GO_AHEAD, 
 	.option_name = "TELNET_OPT_SUPPRESS_GO_AHEAD",
 	.option_desc = "Suppress Go Ahead",
