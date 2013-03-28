@@ -88,11 +88,11 @@ static telnet_cmd _telnet_cmds_table[] = {
 	.cmd_name = "TELNET_IAC",
 	.cmd_desc = "Interprete As Command",
     }
-    {//Invalid
-	.cmd_code = TELNET_INVALID,
-	.cmd_name = "TELNET_INVALID",
-	.cmd_desc = "Invalid Telnet Command",
-    }
+//   {//Invalid
+//	.cmd_code = TELNET_INVALID,
+//	.cmd_name = "TELNET_INVALID",
+//	.cmd_desc = "Invalid Telnet Command",
+//   }
 };
 
 TELNET_EXPORT
