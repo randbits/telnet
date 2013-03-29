@@ -10,7 +10,7 @@
 static telnet_option _telnet_options_table[] = {
     [3] = {//3
 	.option_code = TELNET_OPT_SUPPRESS_GO_AHEAD, 
-	.option_name = "TELNET_OPT_SUPPRESS_GO_AHEAD",
+	.option_name = "SUPPRESS-GO-AHEAD",
 	.option_desc = "Suppress Go Ahead",
     },
 };
