@@ -6,6 +6,10 @@
 #include <telnet_misc.h>
 
 #define TELNET_CMD_MIN_CODE	240	//the min command code
+#define TELNET_CMD_MAX_CODE	255
+#define TELNET_CMD_IS_VALID(cmd_code) \
+    (((cmd_code)>=TELNET_CMD_MIN_CODE)&& \
+     ((cmd_code)<=TELNET_CMD_MAX_CODE))
 
 static telnet_cmd _telnet_cmds_table[] = {
     [0] = {//240
@@ -89,17 +93,28 @@ static telnet_cmd _telnet_cmds_table[] = {
 	.cmd_desc = "Interprete As Command",
     }
 };
-
+/*
+ *	@cmd_code: the command code
+ *	@return: the corresponding command name 
+ *		 or NULL if cmd_code is not a valid 
+ *		 command code.
+ */
 TELNET_EXPORT
 const char*
 telnet_cmd_get_name (unsigned char cmd_code)
 {
-    return _telnet_cmds_table[cmd_code-TELNET_CMD_MIN_CODE].cmd_name;
+    if (TELNET_CMD_IS_VALID(cmd_code))
+	return _telnet_cmds_table[cmd_code-TELNET_CMD_MIN_CODE].cmd_name;
+    else
+	return NULL;
 }
 
 TELNET_EXPORT
 const char*
 telnet_cmd_get_desc (unsigned char cmd_code)
 {
-    return _telnet_cmds_table[cmd_code-TELNET_CMD_MIN_CODE].cmd_desc;
+    if (TELNET_CMD_IS_VALID(cmd_code))
+	return _telnet_cmds_table[cmd_code-TELNET_CMD_MIN_CODE].cmd_desc;
+    else
+	return NULL;
 }
