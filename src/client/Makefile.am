@@ -2,7 +2,7 @@
 AM_CPPFLAGS = \
 	$(NULL)
 
-AM_CFLAGS = \
+AM_LDFLAGS = \
 	$(NULL)
 
 
