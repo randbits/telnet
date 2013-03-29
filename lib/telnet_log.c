@@ -3,8 +3,9 @@
  */
 
 #include <stdio.h>
-#include <stdargs.h>
+#include <stdarg.h>
 
+#include <telnet_log.h>
 #include <telnet_misc.h>
 
 static const char*
@@ -19,9 +20,9 @@ log_level_to_str (TelnetLogLevel level)
 	case TELNET_LOG_LEVEL_WARNING:
 	    return "Warning";
 	case TELNET_LOG_LEVEL_MESSAGE:
-	    return "Message;
+	    return "Message";
 	case TELNET_LOG_LEVEL_INFO:
-	    return "Info;
+	    return "Info";
 	case TELNET_LOG_LEVEL_DEBUG:
 	    return "Debug";
 	default:

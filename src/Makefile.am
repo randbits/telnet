@@ -1,0 +1,4 @@
+SUBDIRS = \
+	client\
+	server\
+	$(NULL)
