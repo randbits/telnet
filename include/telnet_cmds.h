@@ -105,6 +105,13 @@ struct telnet_cmd
 /*
  *	Public APIs
  */
+#define TELNET_MAX_CMD_LEN	64 //the max command sequence len (may be not reasonable).
+
+#define TELNET_CMD_MIN_CODE	240	//the min command code
+#define TELNET_CMD_MAX_CODE	255
+#define TELNET_CMD_IS_VALID(cmd_code) \
+    (((cmd_code)>=TELNET_CMD_MIN_CODE)&& \
+     ((cmd_code)<=TELNET_CMD_MAX_CODE))
 
 extern const char* telnet_cmd_get_name (unsigned char cmd_code);
 extern const char* telnet_cmd_get_desc (unsigned char cmd_code);

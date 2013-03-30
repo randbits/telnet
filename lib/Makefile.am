@@ -2,6 +2,7 @@
 noinst_LTLIBRARIES = libtelnet.la
 
 libtelnet_la_SOURCES = \
+	telnet.c\
 	telnet_cmds.c\
 	telnet_log.c\
 	telnet_nvt.c\

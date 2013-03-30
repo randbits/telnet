@@ -5,12 +5,6 @@
 #include <telnet_cmds.h>
 #include <telnet_misc.h>
 
-#define TELNET_CMD_MIN_CODE	240	//the min command code
-#define TELNET_CMD_MAX_CODE	255
-#define TELNET_CMD_IS_VALID(cmd_code) \
-    (((cmd_code)>=TELNET_CMD_MIN_CODE)&& \
-     ((cmd_code)<=TELNET_CMD_MAX_CODE))
-
 static telnet_cmd _telnet_cmds_table[] = {
     [0] = {//240
 	.cmd_code = TELNET_CMD_SE, 
@@ -118,3 +112,4 @@ telnet_cmd_get_desc (unsigned char cmd_code)
     else
 	return NULL;
 }
+

@@ -13,11 +13,12 @@
 #include <sys/socket.h>
 #include <netdb.h>		//include def for struct addrinfo
 
+#include <telnet.h>
+
 #define BUF_SIZE 1024
+
 //here we should use unsigned as signed char can cause problems
 unsigned char buffer[BUF_SIZE] = {0};
-
-static void pretty_print (const unsigned char* _buffer, int _size);
 
 int
 main (int argc, char** argv)
@@ -72,62 +73,32 @@ main (int argc, char** argv)
     freeaddrinfo (res);
     //3. event loop
     int read_size = 0;
+    char tmp_buffer[TELNET_MAX_CMD_LEN];
+    int tmp_size;
+    telnet_nvt state;
+    
+    telnet_toggle_log_cmd (TELNET_LOG_CMD_ON);
     for (;;)
     {
-	//3. read data
+	//4. read data
+	read_size = 0;
+	tmp_size = 0;
+	memset (buffer, 0, sizeof (buffer));
+	memset (tmp_buffer, 0, sizeof (tmp_buffer));
 	while ((read_size = read (client_sfd, buffer, sizeof(buffer)))!=-1)
 	{
-	    pretty_print (buffer, read_size);
+	    //5. data processing
+	    telnet_parse_data (&state, 
+			       tmp_buffer, &tmp_size,
+			       buffer, read_size);
+
 	    if (read_size < sizeof(buffer))
 		break;
 	}
-
-	printf ("\n");
 
 	//4. write data
 	//write
     }
     //5. close connection
     close (client_sfd);
-}
-
-
-static void
-pretty_print (const unsigned char* _buffer, int _size)
-{
-    if (_size == 0)
-	return;
-#define N_COLS 16
-    static int line_num= 0;
-    if (line_num == 0)
-    {
-	printf ("\n");
-	printf ("COL\\ROW\t 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
-	printf ("\n");
-    }
-    printf("read_size = 0x%03x\n", _size);
-
-    int row = _size/16 + 1 ;  //row numbers.
-    int i;
-    int j;
-    for (i = 0; i < row; i++)
-    {
-	printf ("%02x\t", i+line_num);
-	//print numbers
-	for (j = 0; j < N_COLS; j++)
-	{
-	    printf(" %02x", _buffer[i*N_COLS+j]);
-	}
-	printf ("\n  \t");
-	//print ascii
-	for (j = 0; j < N_COLS; j++)
-	{
-	    if (isprint (_buffer[i*N_COLS+j]))
-		printf("  %c", _buffer[i*N_COLS+j]);
-	    else
-		printf(" ..");
-	}
-	printf ("\n");
-    }
-    line_num += row;
 }
