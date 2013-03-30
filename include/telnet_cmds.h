@@ -19,16 +19,44 @@ struct telnet_cmd
  *rfc854.txt : p13~p14 TELNET COMMAND STRUCTURE
  *there'are two kinds of commands:
  *1. two bytes sequence
- * +-----+-----+
- * | IAC | CMD |
- * +-----+-----+
- * cmd : command code
+ *
+ *	IAC <cmd> 
+ *
+ * cmd : command code 241~249
  *2. tree bytes sequence (for option negotiation)
- * +-----+-----+-----+
- * | IAC | CMD | OPT |
- * +-----+-----+-----+
- * cmd : command code
- * opt : option code  
+ * 
+ *	IAC <cmd> <option>
+ *
+ * cmd : command code 251-254
+ * opt : option code (see various rfcs) 
+ * NOTE: 1. command types.
+ *	    WILL: Sender wants to do something
+ *	    WONT: Sender doesn't want to do something
+ *	    DO  : Sender wants the other end to do something
+ *	    DONT: Sender wants the other not to do something
+ *	 2. command type and their responses
+ *	    Sender_sent Receiver_responds
+ *	  1)WILL	DO		 
+ *	    The sender would like to use a certain facility if the receiver
+ *	    can handle it. Option is now in effect.
+ *	  2)WILL	DONT
+ *	    Receiver says it cannot support the option. Option is not in effect
+ *	  3)DO		WILL
+ *	    The sender says it can handle traffic from the sender if the sender 
+ *	    wishes to use a certain option. Option is now in effect.
+ *	  4)DO		WONT
+ *	    Receiver says it cannot support the option. Option is not in effect.
+ *	  5)WONT	DONT
+ *	    Option is disabled. DONT is the only valid responses.
+ *	  6)DONT	WONT
+ *	    Option is disabled. WONT is the only valid responses.
+ *
+ *3. more bytes (for subnegotiation)
+ *
+ *	IAC SB <option> <parameters>  IAC SE
+ *
+ * cmd : command code 240, 250
+ * option and parameters: see various rfc definitions.
  */
 #define TELNET_IAC	255	//Interpret As Command
 
@@ -53,6 +81,7 @@ struct telnet_cmd
 #define TELNET_CMD_GA	249	//Go ahead:  The GA signal.
 #define TELNET_CMD_SB	250	//SB: Indicates that what follows is 
 				//    subnegotiation of the indicated option.
+
 #define TELNET_CMD_WILL	251	//WILL (option code): Indicates the desire to 
 				//	begin performing, or confirmation that 
 				//	you are now performing, the indicated 
