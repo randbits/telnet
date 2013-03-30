@@ -12,10 +12,20 @@
      ((option_code)<=TELNET_OPT_MAX_CODE))
 
 static telnet_option _telnet_options_table[] = {
+    [1] = {//1
+	.option_code = TELNET_OPT_ECHO, 
+	.option_name = "ECHO",
+	.option_desc = "Echo",
+    },
     [3] = {//3
 	.option_code = TELNET_OPT_SUPPRESS_GO_AHEAD, 
 	.option_name = "SUPPRESS-GO-AHEAD",
 	.option_desc = "Suppress Go Ahead",
+    },
+    [31] = {//31
+	.option_code = TELNET_OPT_NAWS, 
+	.option_name = "NAWS",
+	.option_desc = "Negotiate About Window Size",
     },
 };
 

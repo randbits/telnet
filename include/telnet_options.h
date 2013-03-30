@@ -15,10 +15,18 @@ struct telnet_option
     const char*	   option_desc; //option description: e.g. "" 
 };
 
+/*rfc857.txt
+ *	TELNET ECHO OPTION
+ */
+#define TELNET_OPT_ECHO			1
 /*rfc858.txt
  *	TELNET SUPPRESS GO AHEAD OPTION
  */
 #define TELNET_OPT_SUPPRESS_GO_AHEAD	3
+/*rfc1073.txt
+ *	Telnet Window Size Option
+ */
+#define TELNET_OPT_NAWS			31
 
 
 /*
