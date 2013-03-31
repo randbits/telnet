@@ -30,8 +30,8 @@ telnet_parse_data (telnet_nvt* state,
 		   unsigned char* cmd_buffer, int* p_cmd_size,
 		   const unsigned char* buffer, int size)
 {
-    int cmd_size;//the size of the incomplete command sequence buffer @cmd_buffer
-    int tmp_size;//the size of the complete comamnd sequence
+    int cmd_size = 0;//the size of the incomplete command sequence buffer @cmd_buffer
+    int tmp_size = 0;//the size of the complete comamnd sequence
 
     cmd_size = *p_cmd_size;
     //1. handling incomplete command from @cmd_buffer
@@ -63,7 +63,7 @@ telnet_parse_data (telnet_nvt* state,
 	cmd_size = size - (current_index - tmp_size);
 	*p_cmd_size = cmd_size;
 	memset (cmd_buffer, 0, TELNET_MAX_CMD_LEN);
-	memcpy (cmd_buffer, buffer[current_index-tmp_size], cmd_size);
+	memcpy (cmd_buffer, &buffer[current_index-tmp_size], cmd_size);
     }
     else if (tmp_size == 1) // the buffer[size-1]==TELNET_IAC
     {
