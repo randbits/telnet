@@ -73,10 +73,15 @@ main (int argc, char** argv)
     freeaddrinfo (res);
     //3. event loop
     int read_size = 0;
-    char tmp_buffer[TELNET_MAX_CMD_LEN];
+    unsigned char tmp_buffer[TELNET_MAX_CMD_LEN];
     int tmp_size;
     telnet_nvt state;
-    
+    telnet_nvt_set_sock_fd (&state, client_sfd);
+
+    //for write
+    int n = TELNET_MAX_CMD_LEN;
+    char* lineptr = (char*)malloc (n+1);
+
     telnet_toggle_log_cmd (TELNET_LOG_CMD_ON);
     for (;;)
     {
@@ -95,9 +100,14 @@ main (int argc, char** argv)
 	    if (read_size < sizeof(buffer))
 		break;
 	}
-
 	//4. write data
-	//write
+	if ((tmp_size = getline (&lineptr, &n, stdin))!=-1)
+	{
+	    lineptr[tmp_size] = TELNET_NVT_ASCII_CR;
+	    lineptr[tmp_size+1] = TELNET_NVT_ASCII_LF;
+	    lineptr[tmp_size+2] = NULL;
+	    write (client_sfd, lineptr, tmp_size+2);
+	}
     }
     //5. close connection
     close (client_sfd);

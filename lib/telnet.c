@@ -107,8 +107,9 @@ telnet_parse_a_cmd (telnet_nvt* state, const unsigned char* buffer, int size)
 		if (size >= 3)
 		{
 		    partial = 0;
+		    telnet_log_option (buffer[2]);
+		    telnet_cmd_do_option (state, buffer[2]);
 		}
-		telnet_log_option (buffer[2]);
 	    }
 	    break;
 	case TELNET_CMD_WONT:
@@ -117,8 +118,8 @@ telnet_parse_a_cmd (telnet_nvt* state, const unsigned char* buffer, int size)
 		if (size >= 3)
 		{
 		    partial = 0;
+		    telnet_log_option (buffer[2]);
 		}
-		telnet_log_option (buffer[2]);
 	    }
 	    break;
 	case TELNET_CMD_DO:
@@ -127,8 +128,8 @@ telnet_parse_a_cmd (telnet_nvt* state, const unsigned char* buffer, int size)
 		if (size >= 3)
 		{
 		    partial = 0;
+		    telnet_log_option (buffer[2]);
 		}
-		telnet_log_option (buffer[2]);
 	    }
 	    break;
 	case TELNET_CMD_DONT:
@@ -137,9 +138,8 @@ telnet_parse_a_cmd (telnet_nvt* state, const unsigned char* buffer, int size)
 		if (size >= 3)
 		{
 		    partial = 0;
+		    telnet_log_option (buffer[2]);
 		}
-		telnet_log_option (buffer[2]);
-
 		//telnet_nvt_set_option (state, buffer[2]);
 	    }
 	    break;
