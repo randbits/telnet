@@ -71,7 +71,7 @@ telnet_log_cmd (unsigned char cmd_code)
 	const char* cmd_name = telnet_cmd_get_name (cmd_code);
 	if (cmd_name != NULL)
 	{
-	    sprintf (log_cmd_seq, " %s", cmd_name);
+	    sprintf (log_cmd_seq, "%s %s", log_cmd_seq, cmd_name);
 	}
     }
 }
@@ -85,7 +85,7 @@ telnet_log_option (unsigned char option_code)
 	const char* option_name = telnet_option_get_name (option_code);
 	if (option_name != NULL)
 	{
-	    sprintf (log_cmd_seq, " %s", option_name);
+	    sprintf (log_cmd_seq, "%s %s", log_cmd_seq, option_name);
 	}
     }
 }
